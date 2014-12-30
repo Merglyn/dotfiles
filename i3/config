@@ -29,13 +29,19 @@ set $gn     #2ecc71
 set $rd     #e74c3c
 
 # set colors
-# set some nice colors      border     background  text
-client.focused              $rd        $rd         $tx
-client.unfocused            $ia        $ia         $tx
-client.focused_inactive     $fg        $fg         $rd
-client.urgent               $rd        $rd         $tx
+# set some nice colors      border     background  text  indicator
+client.focused              $rd        $rd         $tx   $rd
+client.unfocused            $ia        $ia         $tx   $ia
+client.focused_inactive     $fg        $fg         $rd   $fg
+client.urgent               $rd        $rd         $tx   $rd
 
 set $mod Mod1
+
+# fix cursor
+exec --no-startup-id gsettings set org.gnome.settings-daemon.plugins.cursor active false
+
+# wallpaper 
+exec --no-startup-id feh --bg-fill $HOME/Pictures/bg.png
 
 # The font above is very space-efficient, that is, it looks good, sharp and
 # Font for window titles. Will also be used by the bar unless a different font
@@ -54,18 +60,33 @@ font pango:DejaVu Sans Mono 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
+# volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 -- +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+
+# brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+
+# media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
 # start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec --no-startup-id dmenu_run -nb '#1A1A1A' -nf '#ECF0F1' -sb '#E74C3C' -sf '#1A1A1A' -l 7 -i
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus<p></p>
 bindsym $mod+h focus left
@@ -183,7 +204,7 @@ bar {
             statusline          $fg
             separator           $hi
             focused_workspace   $rd        $bg        $rd
-            active_workspace    $rd        $rd        $tx
+            active_workspace    $rd        $rd        $rd
             inactive_workspace  $bg        $bg        $ia
             urgent_workspace    $rd        $bg        $rd
         }
