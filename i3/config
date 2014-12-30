@@ -30,8 +30,11 @@ exec --no-startup-id gsettings set org.gnome.settings-daemon.plugins.cursor acti
 # wallpaper 
 exec --no-startup-id feh --bg-fill $HOME/Pictures/bg.png
 
-# font ##TODO: change
-font pango:DejaVu Sans Mono 8
+# font
+font pango:Fira Code Regular 9
+
+# default font
+#font pango:DejaVu Sans Mono 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
