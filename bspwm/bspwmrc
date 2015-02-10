@@ -1,0 +1,17 @@
+#! /bin/sh
+
+/home/widr1225/.config/bspwm/panel &
+
+bspc config border_width        3
+bspc config window_gap          8
+bspc config top_padding        30
+
+bspc config split_ratio         0.52
+bspc config borderless_monocle  true
+bspc config gapless_monocle     true
+bspc config focus_by_distance   true
+
+bspc monitor LVDS1 -d I II III IV V
+bspc monitor VGA1  -d VI VII VIII IX X
+
+feh --bg-fill /home/widr1225/Pictures/bg.jpg
