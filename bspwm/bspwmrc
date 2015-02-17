@@ -2,7 +2,7 @@
 
 /home/widr1225/.config/bspwm/panel &
 
-bspc config border_width        3
+bspc config border_width        4
 bspc config window_gap          8
 bspc config top_padding        30
 
@@ -12,6 +12,6 @@ bspc config gapless_monocle     true
 bspc config focus_by_distance   true
 
 bspc monitor LVDS1 -d I II III IV V
-bspc monitor VGA1  -d VI VII VIII IX X
 
 feh --bg-fill /home/widr1225/Pictures/bg.jpg
+compton -cCGfFb -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88

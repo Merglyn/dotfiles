@@ -99,7 +99,7 @@ do
 	# Left
 	printf '%s' '%{l}'
 	# Desktops
-	for i in I II III IV V
+	for i in VI VII VIII IX X
 	do
 
       if [[ $(bspc control --get-status | grep -c O$i:) -eq 'true' ]]
@@ -130,5 +130,5 @@ do
 done | bar \
 	-F \#ff$WHITE \
 	-B \#ff$BLACK \
-	-g 1346x20+10+10 \
-	-f '-*-terminus-medium-r-normal-*-14-*-*-*-*-*-*-u' | ~/.config/bspwm/spawner
+	-g 1700x20+1610+10 \
+	-f '-*-terminus-medium-r-normal-*-14-*-*-*-*-*-*-u' | ~/.config/bspwm/spawner2
