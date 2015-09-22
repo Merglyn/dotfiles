@@ -134,7 +134,9 @@ def get_xdg_cmd(cmd):
 special = {
   "fir": (lambda x: ("%I~/.config/lighthouse/firefox.png%firefox","firefox")),
   "gim": (lambda x: ("%I~/.config/lighthouse/gimp.png%GIMP", "gimp")),
+  "chr": (lambda x: ("chrome","google-chrome-stable")),
   "vi": (lambda x: ("vim","terminator -e vim")),
+  "si": (lambda x: ("sis-terminal","rdesktop -u widr1225 -d ad sis-terminal.ad.colorado.edu -g 50%"))
 };
 
 while 1:
