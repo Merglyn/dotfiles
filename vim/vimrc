@@ -71,8 +71,6 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-" add pathogen
-execute pathogen#infect()
 filetype plugin indent on
 
 " turn on line numbers
@@ -97,7 +95,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 " colors
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-	set t_Co = 256
+	set t_Co=256
 endif
 
 " more colors

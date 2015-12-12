@@ -1,0 +1,95 @@
+#!/bin/bash
+# Pumpkin Bar
+# by Merglyn
+
+#inspiration taken from:
+# z3bra's bar
+# Ivan Sokolov's bar panel
+# BSPWM's lemonbar example
+# various /r/unixporn scrots
+source colors
+
+function F {
+    echo -n "%{F#$2}$1%{F-}"
+}
+
+function B {
+    echo -n "%{B#$2}$1%{B-}"
+}
+
+function U {
+    echo -n "%{U#$2}$1%{B-}"
+}
+
+function u {
+    echo -n -e "\u$1"
+}
+
+clock() {
+    F $(u f017) $LGRAY
+    echo " "
+    F $(date -u +%I:%M%p) $LGRAY
+}
+calendar() {
+    F $(u f073) $LGRAY
+    echo " "
+    F $(date -u +"%m-%d-%y") $LGRAY
+}
+network() {
+    ping -c 1 8.8.8.8 >/dev/null 2>&1 && echo -n $(F $(u f26b) $GREEN) || echo -n $(F $(u f26b) $RED)
+}
+volume() {
+    F $(u f028) $LGRAY
+    echo " "
+    F $(pamixer --get-volume) $LGRAY
+}
+cpuload() {
+    F $(u f0e7) $LGRAY
+    echo " "
+    F $(ps -eo pcpu | grep -vE '^\s*(0.0|%CPU)' | awk '{s+=1} END {print s}' | cut -c 1-2 - | sed 's/\./ /g') $LGRAY
+}
+memused() {
+    F $(u f1c0) $LGRAY
+    echo " "
+    F $(free | grep Mem | awk '{print 100*$3/$2}' | cut -c 1-2 - | sed 's/\./ /g') $LGRAY
+}
+
+
+while :; do
+    buf="%{l}"
+    buf="${buf} $(F $(whoami)@$HOSTNAME $LGRAY)"
+    buf="${buf} %{c}"
+    for i in I II III IV V
+    do
+        if [[ $(bspc control --get-status | grep -c O$i:) -eq 'true' ]]
+        then
+            COLOR=$GRAY
+            BCOLOR=$BLUE
+        else
+            COLOR=$BLUE
+            BCOLOR=$GRAY
+        fi
+        if [[ $(bspc control --get-status | grep -c f$i:) -eq 'true' ]]
+        then
+            CHAR=f0c8
+        else
+            CHAR=f096
+        fi
+        buf="${buf} $(F $(u $CHAR) $COLOR) "
+    done
+    buf="${buf} %{r}"
+    buf="${buf} $(network)  |"
+    buf="${buf} $(cpuload)  |"
+    buf="${buf} $(memused)  |"
+    buf="${buf} $(volume) |"
+    buf="${buf} $(clock) "
+    buf="${buf} $(calendar)"
+    echo $buf
+sleep 1
+done | lemonbar \
+    -F \#ff$WHITE \
+    -B \#99$BLACK \
+    -g 2540x20+10+10 \
+    -f 'Source Code Pro Semi-Bold 15' \
+    -f FontAwesome-12
+

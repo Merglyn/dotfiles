@@ -1,6 +1,7 @@
 #! /bin/sh
 
-/home/widr1225/.config/bspwm/panel &
+sxhkd &
+terminator &
 
 bspc config border_width        4
 bspc config window_gap          8
@@ -11,7 +12,30 @@ bspc config borderless_monocle  true
 bspc config gapless_monocle     true
 bspc config focus_by_distance   true
 
-bspc monitor LVDS1 -d I II III IV V
+# turn on TV and monitor
+xrandr --output DP-0 --auto --primary
+xrandr --output DVI-D-0 --auto --right-of DP-0
+xrandr --output HDMI-0 --auto --right-of DVI-D-0
+
+# configure monitors with alternating workspaces
+bspc monitor DP-0 -d I III V VII
+bspc monitor DVI-D-0 -d II IV VI VIII
+bspc monitor HDMI-0 -d IX X
+
+# lemonbar HUD (WIP)
+/home/widr1225/.config/lemonbar/DP0_Panel &
+/home/widr1225/.config/lemonbar/DVID0_Panel &
+/home/widr1225/.config/lemonbar/HDMI0_Panel &
+
+# firefox new tab page
+node /home/widr1225/Git/about-blank/server.js > /dev/null &
+
+# redshift, configured to use UTC ATM
+redshift -l 0:0 -t 4500K:2500K &
+
+# My deathadder is really high dpi, and inits at 2.0 mouse accell
+# so fix that crap...
+xset m 1 0
 
 feh --bg-fill /home/widr1225/Pictures/bg.jpg
-compton -cCGfFb -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88
+compton -b --config /home/widr1225/.compton

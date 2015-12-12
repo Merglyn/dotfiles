@@ -1,11 +1,15 @@
 dotfiles
 ========
-
-These are mostly dotfiles for my SmartBacon Thinkpad Laptop. Current programs used are
-
-* i3
-* dmenu
-* i3status
-* fish
-* vim
-* nmon
+Various scripts and stuff for my setup
+Progs:
+ * lemonbar
+   - lemonbar/panel goes to ~/.config/lemonbar/displayname\_Panel
+ * bspwm
+   - bspwm/bspwmrc goes to ~/.config/bspwm/. edit as desired
+ * fish prompt
+  - fish/fish\_prompt.fish goes to ~/.config/fish/functions/.
+ * vim
+  - vim/vimrc goes to ~/.vimrc
+  - vim/colors/brogrammer.vim goes to ~/.vim/colors/.
+ * lighthouse
+  - lighthouse/\* goes to ~/.config/lighthouse/.
